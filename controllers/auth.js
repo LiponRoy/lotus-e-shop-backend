@@ -52,7 +52,24 @@ const signin = async (req, res, next) => {
 	}
 };
 
+//  Logout user
+const logout = async (req, res, next) => {
+	try {
+		res.cookie('access_token', '', {
+			expires: new Date(Date.now()),
+			httpOnly: true,
+		});
+		res.status(200).json({
+			success: true,
+			message: 'Log out success',
+		});
+	} catch (err) {
+		next(err);
+	}
+};
+
 module.exports = {
 	signup,
 	signin,
+	logout,
 };
