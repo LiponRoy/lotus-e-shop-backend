@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const mongodb_con = require('./DB_connect/MongodbMe');
 const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/auth');
+const productRoutes = require('./routes/product');
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ dotenv.config();
 app.use(cookieParser());
 app.use(express.json());
 app.use('/api/auth', authRoutes);
+app.use('/api/product', productRoutes);
 
 //error handler
 app.use((err, req, res, next) => {
