@@ -16,7 +16,7 @@ const signup = async (req, res, next) => {
 
 		await newUser.save();
 		// create jwt and set to Cookie
-		const token = jwt.sign({ id: newUser._id, name: newUser.name }, process.env.JWT);
+		const token = jwt.sign({ id: newUser._id, role: newUser.role }, process.env.JWT);
 		res
 			.cookie('access_token', token, {
 				httpOnly: true,
@@ -38,7 +38,7 @@ const signin = async (req, res, next) => {
 
 		if (!isCorrect) return next(createError(400, 'Wrong Credentials!'));
 
-		const token = jwt.sign({ id: user._id, name: user.name }, process.env.JWT);
+		const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT);
 		const { password, ...others } = user._doc;
 
 		res

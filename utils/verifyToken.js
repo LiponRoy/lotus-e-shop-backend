@@ -18,6 +18,17 @@ const verifyToken = (req, res, next) => {
 	});
 };
 
+// Handling users roles
+const authorizeRoles = (...roles) => {
+	return (req, res, next) => {
+		if (!roles.includes(req.user.role)) {
+			return next(createError(401, 'You are not Admin'));
+		}
+		next();
+	};
+};
+
 module.exports = {
 	verifyToken,
+	authorizeRoles,
 };

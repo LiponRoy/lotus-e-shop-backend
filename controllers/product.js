@@ -20,6 +20,21 @@ const createProduct = async (req, res, next) => {
 	}
 };
 
+//  todo create
+const getAllProduct = async (req, res, next) => {
+	// console.log(req.user.id);
+	// console.log(req.user.isAdmin);
+	try {
+		const allProduct = await Product.find();
+		if (!allProduct) return next(createError(404, 'no Product found'));
+
+		res.status(200).json(allProduct);
+	} catch (err) {
+		next(err);
+	}
+};
+
 module.exports = {
 	createProduct,
+	getAllProduct,
 };
