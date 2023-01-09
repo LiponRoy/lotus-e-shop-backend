@@ -12,5 +12,9 @@ const mongoConnect = async () => {
 		console.log(error);
 		process.exit(1);
 	}
+	// when mongoDB disconnected
+	mongoose.connection.on('disconnected', () => {
+		console.log('mongoDB disconnected!');
+	});
 };
 module.exports = mongoConnect;
