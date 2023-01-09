@@ -1,11 +1,12 @@
 const express = require('express');
-const { createProduct, getAllProduct } = require('../controllers/product');
-const { verifyToken, verifyUser, verifyAdmin } = require('../utils/verifyTokenJwt.js');
+const { createProduct, getAllProduct, getProduct } = require('../controllers/product');
+const { verifyAdmin, verifyUser, verifyToken } = require('../utils/verifyTokenJwt');
 
 const router = express.Router();
 
 //CREATE A PRODUCT
-router.post('/create', verifyToken, createProduct);
-router.get('/getAll', verifyToken, verifyAdmin, getAllProduct);
+router.post('/create', verifyToken, verifyAdmin, createProduct);
+router.get('/getAll', verifyToken, getAllProduct);
+router.get('/getOne/:id', verifyToken, getProduct);
 
 module.exports = router;

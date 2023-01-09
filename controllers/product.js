@@ -34,7 +34,21 @@ const getAllProduct = async (req, res, next) => {
 	}
 };
 
+// get single product
+const getProduct = async (req, res, next) => {
+	try {
+		const product = await Product.findById(req.params.id);
+		if (!product) {
+			return next(createError(401, 'product not found'));
+		}
+		res.status(200).json(product);
+	} catch (err) {
+		next(err);
+	}
+};
+
 module.exports = {
 	createProduct,
 	getAllProduct,
+	getProduct,
 };
