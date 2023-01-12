@@ -6,12 +6,14 @@ const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const productRoutes = require('./routes/product');
+const cors = require('cors');
 
 dotenv.config();
 
 //middlewares
 app.use(cookieParser());
 app.use(express.json());
+app.use(cors());
 app.use('/api/auth', authRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/user', userRoutes);

@@ -1,25 +1,16 @@
 const mongoose = require('mongoose');
 
-const ProductSchema = new mongoose.Schema(
+const productSchema = new mongoose.Schema(
 	{
-		title: {
-			type: String,
-			required: true,
-		},
-		description: {
-			type: String,
-			required: true,
-		},
-		price: {
-			type: Number,
-			required: true,
-		},
-		star: {
-			type: Number,
-			required: true,
-		},
+		name: { type: String, required: true },
+		brand: { type: String, required: true },
+		desc: { type: String, required: true },
+		price: { type: Number, required: true },
+		image: { type: Object, required: true },
 	},
 	{ timestamps: true },
 );
 
-module.exports = mongoose.model('lotus-e-shop-Product', ProductSchema);
+const Product = mongoose.model('Lotus-Product', productSchema);
+
+exports.Product = Product;
