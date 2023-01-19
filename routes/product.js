@@ -5,7 +5,7 @@ const { verifyAdmin, verifyUser, verifyToken } = require('../utils/verifyTokenJw
 const router = express.Router();
 
 //CREATE A PRODUCT
-router.post('/create', verifyToken, verifyAdmin, createProduct);
+router.post('/create', createProduct);
 router.get('/getAll', getAllProduct);
 router.get('/getOne/:id', verifyToken, getProduct);
 

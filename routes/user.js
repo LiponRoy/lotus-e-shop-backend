@@ -4,7 +4,7 @@ const { verifyAdmin, verifyUser, verifyToken } = require('../utils/verifyTokenJw
 
 const router = express.Router();
 //CREATE A USER
-router.get('/getAll', verifyToken, verifyAdmin, getUsers);
+router.get('/getAll', getUsers);
 
 router.get('/getOne/:id', verifyToken, verifyUser, getUser);
 
