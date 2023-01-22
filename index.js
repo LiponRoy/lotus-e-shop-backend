@@ -7,15 +7,30 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const testRoutes = require('./routes/testMe');
 // const productRoutes = require('./routes/product');
+
 const cors = require('cors');
 const cloudinary = require('cloudinary');
 
 dotenv.config();
 
 //middlewares
+
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
+//cors only
+// const whitelist = ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:4000' /** other domains if any */];
+// const corsOptions = {
+// 	credentials: true,
+// 	origin: function (origin, callback) {
+// 		if (whitelist.indexOf(origin) !== -1) {
+// 			callback(null, true);
+// 		} else {
+// 			callback(new Error('Not allowed by CORS'));
+// 		}
+// 	},
+// };
+// app.use(cors(corsOptions));
+//cors only end
 app.use('/api/auth', authRoutes);
 // app.use('/api/product', productRoutes);
 app.use('/api/user', userRoutes);
@@ -46,6 +61,7 @@ cloudinary.config({
 
 // created express server
 const port = process.env.PORT || 5000;
+
 app.listen(port, () => {
-	console.log(`The Server is running on port: ${port}`);
+	console.log('Server is rouning on ' + port);
 });

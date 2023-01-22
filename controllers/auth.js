@@ -68,8 +68,18 @@ const logout = async (req, res, next) => {
 	}
 };
 
+const getUserProfile = async (req, res, next) => {
+	const user = await User.findById(req.user.id);
+
+	res.status(200).json({
+		success: true,
+		user,
+	});
+};
+
 module.exports = {
 	signup,
 	signin,
 	logout,
+	getUserProfile,
 };
