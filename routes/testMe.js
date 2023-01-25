@@ -1,9 +1,9 @@
-const express = require('express');
-const { insertData } = require('../controllers/testMe');
+// const express = require('express');
+// const { insertData } = require('../controllers/testMe');
 
-const router = express.Router();
+// const router = express.Router();
 
-//CREATE A PRODUCT
-router.post('/testMe', insertData);
+// //CREATE A PRODUCT
+// router.post('/testMe', insertData);
 
-module.exports = router;
+// module.exports = router;

@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
-const User = require('../models/user.js');
-const bcrypt = require('bcryptjs');
-const { createError } = require('../error.js');
-const jwt = require('jsonwebtoken');
+import mongoose from 'mongoose';
+import User from '../models/user.js';
+import bcrypt from 'bcryptjs';
+import { createError } from '../error.js';
+import jwt from 'jsonwebtoken';
 
 //  signup user
-const signup = async (req, res, next) => {
+export const signup = async (req, res, next) => {
 	try {
 		const alreadyUser = await User.findOne({ email: req.body.email });
 		if (alreadyUser) return next(createError(404, 'User already exits !'));
@@ -29,7 +29,7 @@ const signup = async (req, res, next) => {
 };
 
 //  signin user
-const signin = async (req, res, next) => {
+export const signin = async (req, res, next) => {
 	try {
 		const user = await User.findOne({ email: req.body.email });
 		if (!user) return next(createError(404, 'User not found!'));
@@ -53,7 +53,7 @@ const signin = async (req, res, next) => {
 };
 
 //  Logout user
-const logout = async (req, res, next) => {
+export const logout = async (req, res, next) => {
 	try {
 		res.cookie('access_token', '', {
 			expires: new Date(Date.now()),
@@ -68,18 +68,9 @@ const logout = async (req, res, next) => {
 	}
 };
 
-const getUserProfile = async (req, res, next) => {
+export const getUserProfile = async (req, res, next) => {
 	const user = await User.findById(req.user.id);
+	if (!user) return next(createError(400, 'profile User not found...!'));
 
-	res.status(200).json({
-		success: true,
-		user,
-	});
-};
-
-module.exports = {
-	signup,
-	signin,
-	logout,
-	getUserProfile,
+	res.status(200).json(user);
 };
