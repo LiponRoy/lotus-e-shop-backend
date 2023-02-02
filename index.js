@@ -2,11 +2,28 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.js';
+import product from './routes/product.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import multer from 'multer';
+//import cloudinary from 'cloudinary';
 
 const app = express();
 dotenv.config();
+
+// for multer
+/* FILE STORAGE */
+const storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, 'public/assets');
+	},
+	filename: function (req, file, cb) {
+		cb(null, file.originalname);
+	},
+});
+const upload = multer({ storage });
+
+// end multer
 
 const connect = async () => {
 	try {
@@ -28,6 +45,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/product', upload.single('picture'), product);
 // app.use('/api/users', usersRoute);
 
 app.use((err, req, res, next) => {
@@ -40,6 +58,13 @@ app.use((err, req, res, next) => {
 		stack: err.stack,
 	});
 });
+
+// Setting up cloudinary configuration
+// cloudinary.config({
+// 	cloud_name: process.env.CLOUDINARY_NAME,
+// 	api_key: process.env.CLOUDINARY_API_KEY,
+// 	api_secret: process.env.CLOUDINARY_API_SECRET,
+// });
 
 const port = process.env.PORT;
 

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import Product from '../models/product.js';
 import { createError } from '../error.js';
-import cloudinary from '../utils/cloudinary';
+import cloudinary from 'cloudinary';
 
 //  signup user
 // const createProductNo = async (req, res, next) => {
@@ -24,7 +24,7 @@ import cloudinary from '../utils/cloudinary';
 
 // Create new product   =>   /api/v1/admin/product/new
 
-const createProduct = async (req, res, next) => {
+export const createProduct = async (req, res, next) => {
 	let images = [];
 	if (typeof req.body.images === 'string') {
 		images.push(req.body.images);
@@ -88,7 +88,7 @@ const createProduct = async (req, res, next) => {
 // };
 
 //  todo create
-const getAllProduct = async (req, res, next) => {
+export const getAllProduct = async (req, res, next) => {
 	// console.log(req.user.id);
 	// console.log(req.user.isAdmin);
 	try {
@@ -102,7 +102,7 @@ const getAllProduct = async (req, res, next) => {
 };
 
 // get single product
-const getProduct = async (req, res, next) => {
+export const getProduct = async (req, res, next) => {
 	try {
 		const product = await Product.findById(req.params.id);
 		if (!product) {
@@ -114,8 +114,8 @@ const getProduct = async (req, res, next) => {
 	}
 };
 
-module.exports = {
-	createProduct,
-	getAllProduct,
-	getProduct,
-};
+// module.exports = {
+// 	createProduct,
+// 	getAllProduct,
+// 	getProduct,
+// };
