@@ -27,14 +27,12 @@ export const createProduct = async (req, res, next) => {
 		}
 	} catch (error) {
 		console.log(error);
-		res.status(500).send(error);
+		next(err);
 	}
 };
 
 //  todo create
 export const getAllProduct = async (req, res, next) => {
-	// console.log(req.user.id);
-	// console.log(req.user.isAdmin);
 	try {
 		const allProduct = await Product.find();
 		if (!allProduct) return next(createError(404, 'no Product found'));

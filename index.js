@@ -5,15 +5,21 @@ import authRoutes from './routes/auth.js';
 import product from './routes/product.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-//import cloudinary from 'cloudinary';
+// for cludenary
+import fileUpload from 'express-fileupload';
+import bodyParser from 'body-parser';
+import cloudinary from 'cloudinary';
 
 const app = express();
 dotenv.config();
+
+// mongoose.set('strictQuery', true);
 
 const connect = async () => {
 	try {
 		await mongoose.connect(process.env.Mongo_URL);
 		mongoose.set('strictQuery', false);
+		mongoose.set('strictQuery', true);
 		console.log('Connected to mongoDB.');
 	} catch (error) {
 		throw error;
@@ -25,9 +31,11 @@ mongoose.connection.on('disconnected', () => {
 });
 
 //middlewares
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(cookieParser());
-app.use(express.json());
+app.use(fileUpload());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/product', product);

@@ -16,11 +16,11 @@ export const signup = async (req, res, next) => {
 
 		await newUser.save();
 		// create jwt and set to Cookie
-		const token = jwt.sign({ id: newUser._id, isAdmin: newUser.isAdmin }, process.env.JWT);
+		//const token = jwt.sign({ id: newUser._id, isAdmin: newUser.isAdmin }, process.env.JWT);
 		res
-			.cookie('access_token', token, {
-				httpOnly: true,
-			})
+			// .cookie('access_token', token, {
+			// 	httpOnly: true,
+			// })
 			.status(200)
 			.json('User has been created!');
 	} catch (err) {
