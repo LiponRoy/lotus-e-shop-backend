@@ -8,7 +8,6 @@ import cors from 'cors';
 // for cludenary
 import fileUpload from 'express-fileupload';
 import bodyParser from 'body-parser';
-import cloudinary from 'cloudinary';
 
 const app = express();
 dotenv.config();
@@ -50,13 +49,6 @@ app.use((err, req, res, next) => {
 		stack: err.stack,
 	});
 });
-
-// Setting up cloudinary configuration
-// cloudinary.config({
-// 	cloud_name: process.env.CLOUDINARY_NAME,
-// 	api_key: process.env.CLOUDINARY_API_KEY,
-// 	api_secret: process.env.CLOUDINARY_API_SECRET,
-// });
 
 const port = process.env.PORT;
 
