@@ -1,13 +1,14 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import authRoutes from './routes/auth.js';
-import product from './routes/product.js';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
+const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const cors = require('cors');
+
+const authRoutes = require('./routes/auth.js');
+const product = require('./routes/product.js');
+const cookieParser = require('cookie-parser');
 // for cludenary
-import fileUpload from 'express-fileupload';
-import bodyParser from 'body-parser';
+const fileUpload = require('express-fileupload');
+const bodyParser = require('body-parser');
 
 const app = express();
 dotenv.config();

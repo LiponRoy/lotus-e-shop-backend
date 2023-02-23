@@ -1,6 +1,6 @@
-import express from 'express';
-import { signup, signin, logout, getUserProfile } from '../controllers/auth.js';
-import { verifyToken } from '../utils/verifyTokenJwt.js';
+const express = require('express');
+const { signup, signin, logout, getUserProfile } = require('../controllers/auth.js');
+const { verifyToken } = require('../utils/verifyTokenJwt.js');
 
 const router = express.Router();
 
@@ -14,4 +14,4 @@ router.post('/logout', logout);
 //Get user profile
 router.get('/getUserProfile', verifyToken, getUserProfile);
 
-export default router;
+module.exports = router;

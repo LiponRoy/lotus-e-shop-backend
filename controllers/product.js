@@ -1,9 +1,9 @@
-import mongoose from 'mongoose';
-import Product from '../models/product.js';
-import { createError } from '../error.js';
-import cloudinary from '../utils/cloudinary.js';
+const mongoose = require('mongoose');
+const Product = require('../models/product.js');
+const { createError } = require('../error.js');
+const cloudinary = require('../utils/cloudinary.js');
 
-export const createProduct = async (req, res, next) => {
+const createProduct = async (req, res, next) => {
 	const { name, brand, desc, price, image } = req.body;
 
 	try {
@@ -32,7 +32,7 @@ export const createProduct = async (req, res, next) => {
 };
 
 //  todo create
-export const getAllProduct = async (req, res, next) => {
+const getAllProduct = async (req, res, next) => {
 	try {
 		const allProduct = await Product.find();
 		if (!allProduct) return next(createError(404, 'no Product found'));
@@ -44,7 +44,7 @@ export const getAllProduct = async (req, res, next) => {
 };
 
 // get single product
-export const getProduct = async (req, res, next) => {
+const getProduct = async (req, res, next) => {
 	try {
 		const product = await Product.findById(req.params.id);
 		if (!product) {
@@ -56,8 +56,8 @@ export const getProduct = async (req, res, next) => {
 	}
 };
 
-// module.exports = {
-// 	createProduct,
-// 	getAllProduct,
-// 	getProduct,
-// };
+module.exports = {
+	createProduct,
+	getAllProduct,
+	getProduct,
+};
