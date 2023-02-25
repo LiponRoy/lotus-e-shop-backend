@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 
-const authRoutes = require('./routes/auth.js');
-const product = require('./routes/product.js');
+const authRouter = require('./routes/auth.js');
+const productRouter = require('./routes/product.js');
 const cookieParser = require('cookie-parser');
 // for cludenary
 const fileUpload = require('express-fileupload');
@@ -36,8 +36,8 @@ app.use(cors());
 app.use(cookieParser());
 app.use(fileUpload());
 
-app.use('/api/auth', authRoutes);
-app.use('/api/product', product);
+app.use('/api/auth', authRouter);
+app.use('/api/product', productRouter);
 // app.use('/api/users', usersRoute);
 
 app.use((err, req, res, next) => {

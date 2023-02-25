@@ -11,4 +11,3 @@ cloudinary.config({
 });
 
 module.exports = cloudinary;
-// export default cloudinary;

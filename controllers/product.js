@@ -3,6 +3,7 @@ const Product = require('../models/product.js');
 const { createError } = require('../error.js');
 const cloudinary = require('../utils/cloudinary.js');
 
+//  create product
 const createProduct = async (req, res, next) => {
 	const { name, brand, desc, price, image } = req.body;
 
@@ -31,7 +32,7 @@ const createProduct = async (req, res, next) => {
 	}
 };
 
-//  todo create
+//  get all product
 const getAllProduct = async (req, res, next) => {
 	try {
 		const allProduct = await Product.find();
