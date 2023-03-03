@@ -1,10 +1,9 @@
-const mongoose = require('mongoose');
-const Product = require('../models/product.js');
-const { createError } = require('../error.js');
-const cloudinary = require('../utils/cloudinary.js');
+import Product from '../models/ProductModel.js';
+import { createError } from '../error.js';
+import cloudinary from '../utils/Cloudinary.js';
 
 //  create product
-const createProduct = async (req, res, next) => {
+export const createProduct = async (req, res, next) => {
 	const { name, brand, desc, price, image } = req.body;
 
 	try {
@@ -33,7 +32,7 @@ const createProduct = async (req, res, next) => {
 };
 
 //  get all product
-const getAllProduct = async (req, res, next) => {
+export const getAllProduct = async (req, res, next) => {
 	try {
 		const allProduct = await Product.find();
 		if (!allProduct) return next(createError(404, 'no Product found'));
@@ -45,7 +44,7 @@ const getAllProduct = async (req, res, next) => {
 };
 
 // get single product
-const getProduct = async (req, res, next) => {
+export const getProduct = async (req, res, next) => {
 	try {
 		const product = await Product.findById(req.params.id);
 		if (!product) {
@@ -55,10 +54,4 @@ const getProduct = async (req, res, next) => {
 	} catch (err) {
 		next(err);
 	}
-};
-
-module.exports = {
-	createProduct,
-	getAllProduct,
-	getProduct,
 };

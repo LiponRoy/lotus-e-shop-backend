@@ -1,5 +1,5 @@
-const express = require('express');
-const { createProduct, getAllProduct, getProduct } = require('../controllers/product.js');
+import express from 'express';
+import { createProduct, getAllProduct, getProduct } from '../controllers/product.js';
 
 const productRouter = express.Router();
 
@@ -7,4 +7,4 @@ productRouter.post('/create', createProduct);
 productRouter.get('/getAll', getAllProduct);
 productRouter.get('/getOne/:id', getProduct);
 
-module.exports = productRouter;
+export default productRouter;

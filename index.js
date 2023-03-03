@@ -1,14 +1,14 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const cors = require('cors');
-
-const authRouter = require('./routes/auth.js');
-const productRouter = require('./routes/product.js');
-const cookieParser = require('cookie-parser');
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 // for cludenary
-const fileUpload = require('express-fileupload');
-const bodyParser = require('body-parser');
+import fileUpload from 'express-fileupload';
+import bodyParser from 'body-parser';
+// Routes
+import AuthRoutes from './routes/AuthRoutes.js';
+import ProductRoute from './routes/ProductRoute.js';
 
 const app = express();
 dotenv.config();
@@ -36,9 +36,8 @@ app.use(cors());
 app.use(cookieParser());
 app.use(fileUpload());
 
-app.use('/api/auth', authRouter);
-app.use('/api/product', productRouter);
-// app.use('/api/users', usersRoute);
+app.use('/api/auth', AuthRoutes);
+app.use('/api/product', ProductRoute);
 
 app.use((err, req, res, next) => {
 	const errorStatus = err.status || 500;
