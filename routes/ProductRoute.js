@@ -4,7 +4,7 @@ import { verifyToken, verifyUser, verifyAdmin } from '../utils/VerifyTokenJwt.js
 const productRouter = express.Router();
 
 productRouter.post('/create', createProduct);
-productRouter.get('/getAll', verifyToken, getAllProduct);
-productRouter.get('/getOne/:id', getProduct);
+productRouter.get('/getAll', getAllProduct);
+productRouter.get('/getOne/:id', verifyToken, getProduct);
 
 export default productRouter;
