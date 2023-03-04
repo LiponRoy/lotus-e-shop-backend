@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "author": "Lipon Roy",
   "license": "ISC",
@@ -22,9 +22,7 @@
     "express-fileupload": "^1.4.0",
     "joi": "^17.7.0",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^6.8.2"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.20"
+    "mongoose": "^6.8.2",
+    "nodemon": "^2.0.21"
   }
 }
