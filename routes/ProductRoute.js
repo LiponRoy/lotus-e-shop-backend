@@ -1,6 +1,6 @@
 import express from 'express';
 import { createProduct, getAllProduct, getProduct } from '../controllers/product.js';
-import { verifyToken, verifyUser, verifyAdmin } from '../utils/VerifyTokenJwt.js';
+import { verifyToken, verifyUser, verifyAdmin } from '../VerifyTokenJwt.js';
 const productRouter = express.Router();
 
 productRouter.post('/create', createProduct);

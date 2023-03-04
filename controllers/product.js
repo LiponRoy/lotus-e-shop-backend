@@ -1,6 +1,6 @@
 import Product from '../models/ProductModel.js';
 import { createError } from '../error.js';
-import cloudinary from '../utils/Cloudinary.js';
+import cloudinary from '../Cloudinary.js';
 
 //  create product
 export const createProduct = async (req, res, next) => {
