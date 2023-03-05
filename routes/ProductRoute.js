@@ -5,6 +5,6 @@ const productRouter = express.Router();
 
 productRouter.post('/create', createProduct);
 productRouter.get('/getAll', getAllProduct);
-productRouter.get('/getOne/:id', verifyToken, getProduct);
+productRouter.get('/getOne/:id', getProduct);
 
 export default productRouter;
