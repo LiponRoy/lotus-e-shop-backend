@@ -3,6 +3,7 @@ import authUser from '../models/AuthModel.js';
 import bcrypt from 'bcryptjs';
 import { createError } from '../error.js';
 import jwt from 'jsonwebtoken';
+import sendEmail from '../utils/sendEmail.js';
 
 //  signup user
 export const signup = async (req, res, next) => {
@@ -73,4 +74,89 @@ export const getUserProfile = async (req, res, next) => {
 	if (!user) return next(createError(400, 'profile User not found...!'));
 
 	res.status(200).json(user);
+};
+
+// password reset all
+// @desc    Forgot Password Initialization
+export const forgotPassword = async (req, res, next) => {
+	// Send Email to email provided but first check if user exists
+	const { email } = req.body;
+
+	try {
+		const user = await authUser.findOne({ email });
+
+		if (!user) {
+			// return next(new ErrorResponse('No email could not be sent', 404));
+			return next(createError(404, 'No email could not be sent'));
+		}
+
+		// Reset Token Gen and add to database hashed (private) version of token
+		const resetToken = user.getResetPasswordToken();
+
+		await user.save();
+
+		// Create reset url to email to provided email
+		const resetUrl = `http://localhost:3000/passwordreset/${resetToken}`;
+
+		// HTML Message
+		const message = `
+      <h1>You have requested a password reset</h1>
+      <p>Please make a put request to the following link:</p>
+      <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
+    `;
+
+		try {
+			await sendEmail({
+				to: user.email,
+				subject: 'Password Reset Request',
+				text: message,
+			});
+
+			res.status(200).json({ success: true, data: 'Email Sent' });
+		} catch (err) {
+			console.log(err);
+
+			user.resetPasswordToken = undefined;
+			user.resetPasswordExpire = undefined;
+
+			await user.save();
+
+			// return next(new ErrorResponse('Email could not be sent', 500));
+			return next(createError(500, 'Email could not be sent'));
+		}
+	} catch (err) {
+		next(err);
+	}
+};
+
+// @desc    Reset User Password
+export const resetPassword = async (req, res, next) => {
+	// Compare token in URL params to hashed token
+	const resetPasswordToken = crypto.createHash('sha256').update(req.params.resetToken).digest('hex');
+
+	try {
+		const user = await authUser.findOne({
+			resetPasswordToken,
+			resetPasswordExpire: { $gt: Date.now() },
+		});
+
+		if (!user) {
+			// return next(new ErrorResponse('Invalid Token', 400));
+			return next(createError(400, 'Invalid Token'));
+		}
+
+		user.password = req.body.password;
+		user.resetPasswordToken = undefined;
+		user.resetPasswordExpire = undefined;
+
+		await user.save();
+
+		res.status(201).json({
+			success: true,
+			data: 'Password Updated Success',
+			// token: user.getSignedJwtToken(),
+		});
+	} catch (err) {
+		next(err);
+	}
 };
